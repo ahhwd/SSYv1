@@ -10,6 +10,7 @@
 - ✅ 本地儲存，隱私優先
 - ✅ 三欄式 UI 設計
 - ✅ AI 對話助手
+- ✅ **多語系支援（🇺🇸 英文 / 🇹🇼 繁體中文）**
 
 ## 開發指令
 
@@ -37,6 +38,9 @@ npm run package
 - Electron
 - React 19
 - Vite
+- i18next + react-i18next（國際化）
+- localforage（本地儲存）
+- jszip（ZIP 檔案處理）
 - 純 CSS（無框架）
 
 ## 專案結構
@@ -44,8 +48,14 @@ npm run package
 ```
 ├── electron/          # Electron 主程序
 ├── src/
+│   ├── i18n/          # 國際化配置
+│   │   ├── config.js  # i18n 配置
+│   │   └── locales/   # 翻譯文件
+│   │       ├── en.json       # 英文
+│   │       └── zh-TW.json    # 繁體中文
 │   ├── components/    # React 組件
 │   ├── data/          # Mock data
+│   ├── utils/         # 工具函數
 │   ├── App.jsx        # 主應用程式
 │   ├── App.css        # 樣式
 │   └── main.jsx       # React 入口
@@ -62,11 +72,50 @@ npm run package
 - 關鍵字搜尋
 - AI 對話面板
 
+## 多語系功能
+
+Sasaya AI 支援以下語言：
+
+- 🇺🇸 **English (US)** - 預設語言
+- 🇹🇼 **繁體中文（台灣）**
+
+### 切換語言
+
+1. 點擊頂部欄左側的語言選擇器
+2. 選擇您想要的語言
+3. 介面會立即切換，選擇會自動保存
+
+詳細測試指南請參閱：[I18N_TESTING_GUIDE.md](./I18N_TESTING_GUIDE.md)
+
+## 部署
+
+### Electron Desktop App
+
+```bash
+# 打包 macOS .dmg
+npm run package:mac
+```
+
+### Web Version (Vercel)
+
+```bash
+# 建置 Web 版本
+npm run build
+
+# 部署到 Vercel
+vercel
+```
+
+詳細部署指南請參閱：[VERCEL_DEPLOY_GUIDE.md](./VERCEL_DEPLOY_GUIDE.md)
+
 ## 後續開發
 
-- [ ] 實際檔案匯入功能
-- [ ] AI 自動分類
-- [ ] 本地資料庫整合
+- [x] 實際檔案匯入功能
+- [x] AI 自動分類（關鍵字版本）
+- [x] 本地資料庫整合
+- [x] AI 對話功能（Demo 版本）
+- [x] 多語系支援
+- [ ] 真實 AI API 整合
 - [ ] 筆記匯出功能
 - [ ] 更多格式化工具
 

@@ -1,0 +1,96 @@
+{
+  "app": {
+    "name": "Sasaya AI",
+    "tagline": "Your Intelligent Knowledge Assistant"
+  },
+  "topBar": {
+    "integrations": "Integrations",
+    "searchPlaceholder": "Search / Ask / Organize  ⌘P",
+    "note": "Note",
+    "ask": "Ask",
+    "split": "Split",
+    "organize": "Organize"
+  },
+  "sidebar": {
+    "create": "➕ Create",
+    "import": "⬇️ Import",
+    "importing": "⏳ Importing..."
+  },
+  "categories": {
+    "work": "Work",
+    "personal": "Personal",
+    "ideas": "Ideas",
+    "learning": "Learning",
+    "uncategorized": "Uncategorized"
+  },
+  "editor": {
+    "titlePlaceholder": "Note Title",
+    "contentPlaceholder": "Start writing...",
+    "emptyStateTitle": "Select a note to start editing",
+    "emptyStateText": "Choose a note from the left, or click \"Create\" button to create a new note",
+    "delete": "Delete",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strikethrough": "Strikethrough",
+    "code": "Code",
+    "font": "Font",
+    "moveToCategory": "Move to category",
+    "deleteConfirm": "Are you sure you want to delete this note?"
+  },
+  "ai": {
+    "title": "Sasaya AI",
+    "subtitle": "Your Intelligent Knowledge Assistant",
+    "scopeLabel": "Search Scope",
+    "scopeAll": "📚 All Notes",
+    "scopeFolder": "📁 This Folder",
+    "scopeNote": "📄 This Note",
+    "inputPlaceholder": "Ask anything...",
+    "inputHint": "Press Enter to send, Shift + Enter for new line",
+    "thinking": "Thinking...",
+    "relevantNotes": "📎 Relevant Notes",
+    "welcome": "Hello! I'm Sasaya AI, your intelligent knowledge assistant. 👋\n\nI can help you:\n\n• 🔍 Search and discover insights from your notes\n• 💡 Answer questions based on your knowledge base\n• 📚 Connect related information across your notes\n• ✨ Provide suggestions and analysis\n\nFeel free to ask me anything about your notes!",
+    "errorMessage": "Sorry, I encountered an error while processing your question. Please try again later."
+  },
+  "import": {
+    "readingFile": "Reading file...",
+    "parsingZip": "Parsing ZIP file...",
+    "convertingConversations": "Converting conversations...",
+    "categorizing": "Categorizing notes...",
+    "complete": "Complete!",
+    "successMessage": "Successfully imported {{conversations}} conversations, created {{notes}} notes",
+    "failedTitle": "Import Failed",
+    "failedMessage": "Unable to parse file. Please confirm this is a ChatGPT exported .zip file"
+  },
+  "note": {
+    "untitled": "Untitled Note"
+  },
+  "mockResponses": {
+    "greetings": [
+      "Hello! How can I help you today?",
+      "Hi! I'm here to help you explore your notes.",
+      "Hey there! What would you like to know?"
+    ],
+    "noRelevantNotes": [
+      "I couldn't find directly relevant notes for your question, but I'm happy to help you think through this.",
+      "Based on your current knowledge base, I don't have specific notes on this topic yet. Would you like to create a new note about it?",
+      "This is an interesting question! While I don't have related notes right now, I can help you organize your thoughts on this topic."
+    ],
+    "withRelevantNotes": [
+      "Based on your notes, here's what I found:",
+      "I found some relevant information in your notes:",
+      "Let me share some insights from your knowledge base:"
+    ],
+    "suggestions": [
+      "💡 Would you like me to help you organize these notes?",
+      "💡 You might want to create a new note to explore this topic further.",
+      "💡 Consider creating a summary note to connect these ideas."
+    ]
+  },
+  "language": {
+    "switchTo": "Switch Language",
+    "en": "English",
+    "zhTW": "繁體中文"
+  }
+}
+

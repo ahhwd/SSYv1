@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { mockCategories, mockNotes } from './data/mockData';
 import { parseChatGPTZip, convertConversationsToNotes, autoCategorizNotes } from './utils/importParser';
 import { saveNotes, loadNotes, saveCategories, loadCategories, updateNote as updateNoteInStorage } from './utils/storage';
 import { generateMockResponse, simulateThinking, getWelcomeMessage } from './utils/mockAI';
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [categories, setCategories] = useState(mockCategories);
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
@@ -20,6 +22,39 @@ function App() {
   const [isAiThinking, setIsAiThinking] = useState(false);
   const fileInputRef = useRef(null);
   const aiContentRef = useRef(null);
+
+  // 切換語言
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('language', lng);
+    
+    // 重新載入分類名稱的翻譯
+    setCategories(prevCategories => 
+      prevCategories.map(cat => ({
+        ...cat,
+        name: getTranslatedCategoryName(cat.id, lng)
+      }))
+    );
+  };
+
+  // 取得翻譯後的分類名稱
+  const getTranslatedCategoryName = (categoryId, lang = i18n.language) => {
+    const categoryMap = {
+      'cat_uncategorized': lang === 'en' ? 'Uncategorized' : '未分類',
+      'cat_personal': lang === 'en' ? 'Personal Growth' : '個人成長',
+      'cat_finance': lang === 'en' ? 'Finance & Investment' : '財經與投資',
+      'cat_language': lang === 'en' ? 'Language Learning' : '語言學習與翻譯',
+      'cat_health': lang === 'en' ? 'Health & Fitness' : '健康與健身',
+      'cat_development': lang === 'en' ? 'Development' : '開發',
+      'cat_japan': lang === 'en' ? 'Japan' : '日本',
+      'cat_business': lang === 'en' ? 'Business & Startup' : '新創與商業',
+      'cat_work': lang === 'en' ? 'Work Experience' : '工作經驗',
+      'cat_ai': lang === 'en' ? 'AI & Technology' : 'AI 與科技',
+      'cat_meeting': lang === 'en' ? 'Meeting Notes' : '會議記錄',
+      'cat_product': lang === 'en' ? 'Product Management' : '產品管理',
+    };
+    return categoryMap[categoryId] || categoryId;
+  };
 
   // 載入資料
   useEffect(() => {
@@ -37,9 +72,15 @@ function App() {
         await saveNotes(mockNotes);
       }
       
-      if (savedCategories) {
-        setCategories(savedCategories);
-      } else {
+      // 載入分類並翻譯名稱
+      const categoriesToUse = savedCategories || mockCategories;
+      const translatedCategories = categoriesToUse.map(cat => ({
+        ...cat,
+        name: getTranslatedCategoryName(cat.id)
+      }));
+      setCategories(translatedCategories);
+      
+      if (!savedCategories) {
         await saveCategories(mockCategories);
       }
       
@@ -114,7 +155,7 @@ function App() {
     const now = new Date();
     const newNote = {
       id: `note_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      title: '未命名筆記',
+      title: t('note.untitled'),
       content: '',
       categoryId: 'cat_uncategorized',
       createdAt: now.toISOString(),
@@ -146,7 +187,7 @@ function App() {
 
   // 刪除筆記
   const handleDeleteNote = (noteId) => {
-    if (window.confirm('確定要刪除這個筆記嗎？')) {
+    if (window.confirm(t('editor.deleteConfirm'))) {
       const updatedNotes = notes.filter(note => note.id !== noteId);
       setNotes(updatedNotes);
       
@@ -188,7 +229,7 @@ function App() {
       .slice(0, 5)
       .map(note => ({
         ...note,
-        categoryName: categories.find(cat => cat.id === note.categoryId)?.name || '未分類'
+        categoryName: categories.find(cat => cat.id === note.categoryId)?.name || t('categories.uncategorized')
       }));
   };
 
@@ -236,7 +277,7 @@ function App() {
       const errorMessage = {
         id: `error_${Date.now()}`,
         type: 'ai',
-        content: '抱歉，我在處理你的問題時遇到了錯誤。請稍後再試。',
+        content: t('ai.errorMessage'),
         timestamp: new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' }),
       };
       setAiMessages(prev => [...prev, errorMessage]);
@@ -279,19 +320,19 @@ function App() {
     if (!file) return;
 
     setIsImporting(true);
-    setImportProgress({ stage: '正在讀取檔案...', current: 0, total: 0 });
+    setImportProgress({ stage: t('import.readingFile'), current: 0, total: 0 });
 
     try {
       // 解析 ZIP 檔案
-      setImportProgress({ stage: '正在解析 ZIP 檔案...', current: 0, total: 0 });
+      setImportProgress({ stage: t('import.parsingZip'), current: 0, total: 0 });
       const conversations = await parseChatGPTZip(file);
       
       // 轉換為筆記
-      setImportProgress({ stage: '正在轉換對話...', current: 0, total: conversations.length });
+      setImportProgress({ stage: t('import.convertingConversations'), current: 0, total: conversations.length });
       const newNotes = convertConversationsToNotes(conversations);
       
       // 自動分類
-      setImportProgress({ stage: '正在分類筆記...', current: 0, total: newNotes.length });
+      setImportProgress({ stage: t('import.categorizing'), current: 0, total: newNotes.length });
       const categorizedNotes = autoCategorizNotes(newNotes);
       
       // 合併到現有筆記
@@ -301,11 +342,11 @@ function App() {
       
       // 顯示統計資訊
       setImportProgress({
-        stage: '完成！',
+        stage: t('import.complete'),
         current: categorizedNotes.length,
         total: conversations.length,
         success: true,
-        message: `成功匯入 ${conversations.length} 個對話，建立了 ${categorizedNotes.length} 個筆記`,
+        message: t('import.successMessage', { conversations: conversations.length, notes: categorizedNotes.length }),
       });
       
       // 3 秒後關閉進度提示
@@ -322,9 +363,9 @@ function App() {
     } catch (error) {
       console.error('匯入失敗:', error);
       setImportProgress({
-        stage: '匯入失敗',
+        stage: t('import.failedTitle'),
         error: true,
-        message: error.message || '無法解析檔案，請確認這是 ChatGPT 匯出的 .zip 檔案',
+        message: error.message || t('import.failedMessage'),
       });
       
       setTimeout(() => {
@@ -390,27 +431,44 @@ function App() {
       {/* Top Bar */}
       <div className="top-bar">
         <div className="top-bar-left">
-          <span style={{ fontSize: '12px', color: '#707070' }}>Integrations</span>
+          <span style={{ fontSize: '12px', color: '#707070' }}>{t('topBar.integrations')}</span>
+          <select 
+            value={i18n.language}
+            onChange={(e) => changeLanguage(e.target.value)}
+            style={{ 
+              marginLeft: '12px',
+              padding: '2px 6px',
+              fontSize: '11px',
+              backgroundColor: '#2d2d2d',
+              color: '#ffffff',
+              border: '1px solid #505050',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            <option value="en">🇺🇸 EN</option>
+            <option value="zh-TW">🇹🇼 繁中</option>
+          </select>
         </div>
         <div className="top-bar-center">
           <input
             type="text"
             className="search-box"
-            placeholder="搜尋 / 提問 / 整理  ⌘P"
+            placeholder={t('topBar.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className="top-bar-right">
-          <button className="top-bar-btn">Note</button>
+          <button className="top-bar-btn">{t('topBar.note')}</button>
           <button 
             className={`top-bar-btn ${showAIPanel ? 'active' : ''}`}
             onClick={() => setShowAIPanel(!showAIPanel)}
           >
-            Ask
+            {t('topBar.ask')}
           </button>
-          <button className="top-bar-btn">Split</button>
-          <button className="top-bar-btn">Organize</button>
+          <button className="top-bar-btn">{t('topBar.split')}</button>
+          <button className="top-bar-btn">{t('topBar.organize')}</button>
         </div>
       </div>
 
@@ -423,14 +481,14 @@ function App() {
               className="sidebar-btn"
               onClick={handleCreateNote}
             >
-              ➕ 新增
+              {t('sidebar.create')}
             </button>
             <button 
               className="sidebar-btn"
               onClick={handleImportClick}
               disabled={isImporting}
             >
-              {isImporting ? '⏳ 匯入中...' : '⬇️ 匯入'}
+              {isImporting ? t('sidebar.importing') : t('sidebar.import')}
             </button>
           </div>
 
@@ -477,24 +535,24 @@ function App() {
               <div className="editor-toolbar">
                 <button 
                   className="toolbar-btn" 
-                  title="刪除"
+                  title={t('editor.delete')}
                   onClick={() => handleDeleteNote(selectedNote.id)}
                 >
                   🗑️
                 </button>
                 <div className="toolbar-divider"></div>
-                <button className="toolbar-btn" title="粗體"><strong>B</strong></button>
-                <button className="toolbar-btn" title="斜體"><em>I</em></button>
-                <button className="toolbar-btn" title="底線"><u>U</u></button>
-                <button className="toolbar-btn" title="刪除線"><s>S</s></button>
-                <button className="toolbar-btn" title="程式碼">{'</>'}</button>
-                <button className="toolbar-btn" title="字體">Aa</button>
+                <button className="toolbar-btn" title={t('editor.bold')}><strong>B</strong></button>
+                <button className="toolbar-btn" title={t('editor.italic')}><em>I</em></button>
+                <button className="toolbar-btn" title={t('editor.underline')}><u>U</u></button>
+                <button className="toolbar-btn" title={t('editor.strikethrough')}><s>S</s></button>
+                <button className="toolbar-btn" title={t('editor.code')}>{'</>'}</button>
+                <button className="toolbar-btn" title={t('editor.font')}>Aa</button>
                 <div className="toolbar-divider"></div>
                 <select 
                   className="category-selector"
                   value={selectedNote.categoryId}
                   onChange={(e) => moveNoteToCategory(selectedNote.id, e.target.value)}
-                  title="移動到分類"
+                  title={t('editor.moveToCategory')}
                 >
                   {categories.map(cat => (
                     <option key={cat.id} value={cat.id}>
@@ -509,22 +567,22 @@ function App() {
                   className="editor-title"
                   value={editingTitle}
                   onChange={(e) => updateNoteTitle(e.target.value)}
-                  placeholder="筆記標題"
+                  placeholder={t('editor.titlePlaceholder')}
                 />
                 <textarea
                   className="editor-body"
                   value={editingContent}
                   onChange={(e) => updateNoteContent(e.target.value)}
-                  placeholder="開始寫作..."
+                  placeholder={t('editor.contentPlaceholder')}
                 />
               </div>
             </>
           ) : (
             <div className="empty-state">
               <div className="empty-state-icon">📝</div>
-              <div className="empty-state-title">選擇一個筆記開始編輯</div>
+              <div className="empty-state-title">{t('editor.emptyStateTitle')}</div>
               <div className="empty-state-text">
-                從左側選擇一個筆記，或點擊「新增」按鈕建立新筆記
+                {t('editor.emptyStateText')}
               </div>
             </div>
           )}
@@ -537,8 +595,8 @@ function App() {
               <div className="ai-title">
                 <div className="ai-icon">💜</div>
                 <div className="ai-title-text">
-                  <h3>Sasaya AI</h3>
-                  <p>您的智能知識助手</p>
+                  <h3>{t('ai.title')}</h3>
+                  <p>{t('ai.subtitle')}</p>
                 </div>
               </div>
               <button className="close-btn" onClick={() => setShowAIPanel(false)}>
@@ -571,7 +629,7 @@ function App() {
                   {/* 顯示相關筆記 */}
                   {message.relevantNotes && message.relevantNotes.length > 0 && (
                     <div className="relevant-notes">
-                      <div className="relevant-notes-title">📎 相關筆記</div>
+                      <div className="relevant-notes-title">{t('ai.relevantNotes')}</div>
                       {message.relevantNotes.map((note) => (
                         <div 
                           key={note.id} 
@@ -597,18 +655,18 @@ function App() {
                     <span className="thinking-dot"></span>
                     <span className="thinking-dot"></span>
                   </div>
-                  <div className="message-timestamp">思考中...</div>
+                  <div className="message-timestamp">{t('ai.thinking')}</div>
                 </div>
               )}
             </div>
 
             <div className="ai-input-area">
               <div className="scope-selector">
-                <label>搜尋範圍</label>
+                <label>{t('ai.scopeLabel')}</label>
                 <select>
-                  <option>📚 所有筆記 ({notes.length})</option>
-                  <option>📁 此資料夾</option>
-                  <option>📄 此筆記</option>
+                  <option>{t('ai.scopeAll')} ({notes.length})</option>
+                  <option>{t('ai.scopeFolder')}</option>
+                  <option>{t('ai.scopeNote')}</option>
                 </select>
               </div>
               <div className="input-box">
@@ -616,7 +674,7 @@ function App() {
                   value={aiInput}
                   onChange={(e) => setAiInput(e.target.value)}
                   onKeyPress={handleAIKeyPress}
-                  placeholder="詢問任何問題..."
+                  placeholder={t('ai.inputPlaceholder')}
                   rows="1"
                   disabled={isAiThinking}
                 />
@@ -629,7 +687,7 @@ function App() {
                 </button>
               </div>
               <div className="input-hint">
-                按 Enter 發送，Shift + Enter 換行
+                {t('ai.inputHint')}
               </div>
             </div>
           </div>

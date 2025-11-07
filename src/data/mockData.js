@@ -78,76 +78,84 @@ export const mockCategories = [
 export const mockNotes = [
   {
     id: 'note_001',
-    title: '歡迎！您的第二大腦已啟動',
+    title: 'Welcome! Your Second Brain is Activated',
     categoryId: 'cat_uncategorized',
-    content: `# 歡迎！您的第二大腦已啟動 👋
+    content: `# Welcome! Your Second Brain is Activated 👋
 
-哈囉！我是 Sasaya，我在這裡幫助您探索您的知識庫，找到筆記之間的連結，並發現新想法。
+Hello! I'm Sasaya, here to help you explore your knowledge base, find connections between notes, and discover new ideas.
 
-我可以幫您做的事情：
+What I can help you with:
 
-- 在您的筆記中搜尋特定資訊
-- 根據您的知識庫回答問題
-- 在不同主題之間發現連結
-- 使用您現有的背景資訊來探索新想法
-- 綜合多個筆記的見解
+- Search for specific information in your notes
+- Answer questions based on your knowledge base
+- Discover connections between different topics
+- Explore new ideas using your existing background knowledge
+- Synthesize insights from multiple notes
 
-## 匯入您的 ChatGPT 聊天記錄
+## Import Your ChatGPT Chat History
 
-點擊左側的「⬇️ 匯入」按鈕，選擇您從 ChatGPT 匯出的 .zip 檔案，即可將所有對話轉換為結構化筆記。
+Click the "⬇️ Import" button on the left, select the .zip file exported from ChatGPT, and convert all conversations into structured notes.
 
-## 開始探索
+## Start Exploring
 
-您可以透過搜尋、瀏覽分類，或直接在右側 AI 對話區詢問 Sasaya 任何問題。`,
+You can search, browse categories, or ask Sasaya any questions directly in the AI chat panel on the right.`,
     timestamp: '00:59',
     createdAt: '2025-01-08T00:59:00Z',
     updatedAt: '2025-01-08T00:59:00Z',
   },
   {
     id: 'note_002',
-    title: 'Untitled Note',
+    title: 'Getting Started with Note-Taking',
     categoryId: 'cat_uncategorized',
-    content: '這是一個未分類的筆記範例。',
+    content: `# Getting Started with Note-Taking
+
+This is a sample note to demonstrate the note-taking features.
+
+## Key Features
+- Create and organize notes
+- Search across all content
+- Import ChatGPT conversations
+- Ask AI questions about your notes`,
     timestamp: '01:50',
     createdAt: '2025-01-08T01:50:00Z',
     updatedAt: '2025-01-08T01:50:00Z',
   },
   {
     id: 'note_003',
-    title: '到風好筒：提升核心好習的解趨心智體',
+    title: 'Building Core Habits: Mental Framework',
     categoryId: 'cat_personal',
-    content: `# 核心好習的重要性
+    content: `# The Importance of Core Habits
 
-建立良好的核心習慣對於個人成長至關重要。以下是一些關鍵點：
+Building good core habits is crucial for personal growth. Here are some key points:
 
-## 習慣養成的要素
-1. 持續性
-2. 小步前進
-3. 環境設計
-4. 追蹤進度
+## Elements of Habit Formation
+1. Consistency
+2. Small incremental steps
+3. Environment design
+4. Progress tracking
 
-透過專注於核心習慣，可以建立良性循環，帶動其他領域的改善。`,
+By focusing on core habits, you can create a positive cycle that drives improvement in other areas.`,
     timestamp: '01:35',
     createdAt: '2025-01-08T01:35:00Z',
     updatedAt: '2025-01-08T01:35:00Z',
   },
   {
     id: 'note_004',
-    title: 'BEAMS 價格迷思：為何值得？',
+    title: 'The Value Proposition: Why Quality Matters',
     categoryId: 'cat_personal',
-    content: `# BEAMS 價格迷思：為何值得？
+    content: `# The Value Proposition: Why Quality Matters
 
-## 核心購買理由
+## Core Reasons for Value-Based Purchasing
 
-- 品質與做工：強調布料、剪裁、細節的價值，是關鍵為之付費的關鍵
-- 設計感與風格：商品有辨識度，能吸引追求個人風格的消費者
-- 品牌文化價值：作為日本選品店，BEAMS 傳遞了生活美學與品牌調性，屬於「感性投資」
-- 耐用性與搭配性：實用性高，但同時耐用且易於搭配，長期來看性價比高
-- 差異化商品：部分款、限定款等特色商品，提供了「真」的充分理由
+- Quality & Craftsmanship: The value of materials, tailoring, and attention to detail
+- Design & Style: Products with distinctive identity that attract personal style seekers
+- Brand Cultural Value: Conveying lifestyle aesthetics and brand tone, an "emotional investment"
+- Durability & Versatility: Practical yet durable and easy to match, offering long-term value
+- Differentiated Products: Special editions and limited items provide compelling reasons
 
-## 購買決策洞察
+## Purchase Decision Insights
 
-價值觀非價格：重心從「追求便宜」轉移至「追求價值」，願意為質感與理念付費。`,
+Values over price: Shifting focus from "seeking cheap" to "seeking value," willing to pay for quality and philosophy.`,
     timestamp: '01:35',
     createdAt: '2025-01-08T01:35:00Z',
     updatedAt: '2025-01-08T01:35:00Z',
@@ -199,17 +207,17 @@ When working with AI, directness in prompts leads to better results.
   },
   {
     id: 'note_008',
-    title: '打單成交實戰：視覺化素材產出',
+    title: 'Product Development: Visual Material Creation',
     categoryId: 'cat_development',
-    content: `# 打單成交實戰：視覺化素材產出
+    content: `# Product Development: Visual Material Creation
 
-在產品開發和銷售中，視覺化素材的重要性不容忽視。
+In product development and sales, the importance of visual materials cannot be overlooked.
 
-## 關鍵要素
-- 清晰的價值主張
-- 易於理解的流程圖
-- 吸引人的設計
-- 數據支持的論證`,
+## Key Elements
+- Clear value proposition
+- Easy-to-understand flowcharts
+- Engaging design
+- Data-backed arguments`,
     timestamp: '01:35',
     createdAt: '2025-01-08T01:35:00Z',
     updatedAt: '2025-01-08T01:35:00Z',

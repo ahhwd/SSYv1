@@ -1,0 +1,96 @@
+{
+  "app": {
+    "name": "Sasaya AI",
+    "tagline": "您的智能知識助手"
+  },
+  "topBar": {
+    "integrations": "整合服務",
+    "searchPlaceholder": "搜尋 / 提問 / 整理  ⌘P",
+    "note": "筆記",
+    "ask": "提問",
+    "split": "分割",
+    "organize": "整理"
+  },
+  "sidebar": {
+    "create": "➕ 新增",
+    "import": "⬇️ 匯入",
+    "importing": "⏳ 匯入中..."
+  },
+  "categories": {
+    "work": "工作",
+    "personal": "個人",
+    "ideas": "想法",
+    "learning": "學習",
+    "uncategorized": "未分類"
+  },
+  "editor": {
+    "titlePlaceholder": "筆記標題",
+    "contentPlaceholder": "開始寫作...",
+    "emptyStateTitle": "選擇一個筆記開始編輯",
+    "emptyStateText": "從左側選擇一個筆記，或點擊「新增」按鈕建立新筆記",
+    "delete": "刪除",
+    "bold": "粗體",
+    "italic": "斜體",
+    "underline": "底線",
+    "strikethrough": "刪除線",
+    "code": "程式碼",
+    "font": "字體",
+    "moveToCategory": "移動到分類",
+    "deleteConfirm": "確定要刪除這個筆記嗎？"
+  },
+  "ai": {
+    "title": "Sasaya AI",
+    "subtitle": "您的智能知識助手",
+    "scopeLabel": "搜尋範圍",
+    "scopeAll": "📚 所有筆記",
+    "scopeFolder": "📁 此資料夾",
+    "scopeNote": "📄 此筆記",
+    "inputPlaceholder": "詢問任何問題...",
+    "inputHint": "按 Enter 發送，Shift + Enter 換行",
+    "thinking": "思考中...",
+    "relevantNotes": "📎 相關筆記",
+    "welcome": "你好！我是 Sasaya AI，你的智能知識助手。👋\n\n我可以幫你：\n\n• 🔍 搜尋和發現筆記中的洞見\n• 💡 基於你的知識庫回答問題\n• 📚 連結你筆記中的相關資訊\n• ✨ 提供建議和分析\n\n隨時問我關於你筆記的任何問題！",
+    "errorMessage": "抱歉，我在處理你的問題時遇到了錯誤。請稍後再試。"
+  },
+  "import": {
+    "readingFile": "正在讀取檔案...",
+    "parsingZip": "正在解析 ZIP 檔案...",
+    "convertingConversations": "正在轉換對話...",
+    "categorizing": "正在分類筆記...",
+    "complete": "完成！",
+    "successMessage": "成功匯入 {{conversations}} 個對話，建立了 {{notes}} 個筆記",
+    "failedTitle": "匯入失敗",
+    "failedMessage": "無法解析檔案，請確認這是 ChatGPT 匯出的 .zip 檔案"
+  },
+  "note": {
+    "untitled": "未命名筆記"
+  },
+  "mockResponses": {
+    "greetings": [
+      "你好！有什麼我可以幫助你的嗎？",
+      "嗨！我在這裡幫助你探索筆記內容。",
+      "你好！想知道些什麼呢？"
+    ],
+    "noRelevantNotes": [
+      "我沒有找到與你問題直接相關的筆記，但我很樂意幫你思考這個問題。",
+      "根據你目前的知識庫，我還沒有關於這個主題的特定筆記。你想建立一個新筆記嗎？",
+      "這是個有趣的問題！雖然我現在沒有相關筆記，但我可以幫你整理對這個主題的想法。"
+    ],
+    "withRelevantNotes": [
+      "根據你的筆記，我找到了以下內容：",
+      "我在你的筆記中找到了一些相關資訊：",
+      "讓我分享一些從你知識庫中找到的見解："
+    ],
+    "suggestions": [
+      "💡 需要我幫你整理這些筆記嗎？",
+      "💡 你可能想建立一個新筆記來進一步探索這個主題。",
+      "💡 考慮建立一個摘要筆記來連結這些想法。"
+    ]
+  },
+  "language": {
+    "switchTo": "切換語言",
+    "en": "English",
+    "zhTW": "繁體中文"
+  }
+}
+

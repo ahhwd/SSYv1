@@ -3,6 +3,8 @@
  * 用於展示 AI 對話功能，不真正呼叫 API
  */
 
+import i18n from '../i18n/config';
+
 /**
  * 根據問題生成 Mock 回答
  * @param {string} question - 用戶問題
@@ -155,23 +157,6 @@ export function simulateThinking(ms = 1000) {
  * 生成友善的歡迎訊息
  */
 export function getWelcomeMessage() {
-  return `嗨！我是 Sasaya 🤖
-
-我在這裡幫助你探索你的知識庫，找到筆記之間的連結，並發現新想法。
-
-**我可以幫你做的事情：**
-• 在你的筆記中搜尋特定資訊
-• 根據你的知識庫回答問題
-• 在不同主題之間發現連結
-• 使用你現有的背景資訊來探索新想法
-• 綜合多個筆記的見解
-
-**試試問我：**
-• "什麼是系統一和系統二？"
-• "如何提升個人成長？"
-• "BEAMS 品牌的價值在哪裡？"
-• "AI 技術的關鍵是什麼？"
-
-你今天想探索什麼呢？💭`;
+  return i18n.t('ai.welcome');
 }
 
