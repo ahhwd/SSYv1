@@ -1,0 +1,58 @@
+{
+  "name": "sasaya-ai",
+  "version": "1.0.0",
+  "description": "Sasaya AI - 將 AI 聊天記錄轉換為個人知識庫",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "electron": "NODE_ENV=development electron .",
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && npm run electron\"",
+    "package": "npm run build && electron-builder",
+    "package:mac": "npm run build && electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.sasaya.ai",
+    "productName": "Sasaya AI",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "title": "Sasaya AI"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    }
+  },
+  "keywords": [
+    "electron",
+    "mac",
+    "ai",
+    "notes"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.2.1",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "patch-package": "^8.0.0",
+    "vite": "^6.0.3",
+    "wait-on": "^9.0.1"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "localforage": "^1.10.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}
