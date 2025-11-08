@@ -9,7 +9,8 @@
     "note": "筆記",
     "ask": "提問",
     "split": "分割",
-    "organize": "整理"
+    "organize": "整理",
+    "settings": "設定"
   },
   "sidebar": {
     "create": "➕ 新增",
@@ -91,6 +92,23 @@
     "switchTo": "切換語言",
     "en": "English",
     "zhTW": "繁體中文"
+  },
+  "settings": {
+    "title": "設定",
+    "profile": "個人資料",
+    "currentPlan": "正在訂閱方案名稱",
+    "upgradePlan": "升級方案",
+    "personalization": "個人化",
+    "notifications": "通知",
+    "dataControl": "資料控制",
+    "language": "應用程式語言",
+    "checkUpdates": "檢查更新",
+    "theme": "主題顏色",
+    "themeLight": "淺色",
+    "themeDark": "深色",
+    "signOut": "登出帳號",
+    "comingSoon": "即將推出",
+    "close": "關閉"
   }
 }
 

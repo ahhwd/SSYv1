@@ -9,7 +9,8 @@
     "note": "Note",
     "ask": "Ask",
     "split": "Split",
-    "organize": "Organize"
+    "organize": "Organize",
+    "settings": "Settings"
   },
   "sidebar": {
     "create": "➕ Create",
@@ -91,6 +92,23 @@
     "switchTo": "Switch Language",
     "en": "English",
     "zhTW": "繁體中文"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "currentPlan": "Current Plan",
+    "upgradePlan": "Upgrade Plan",
+    "personalization": "Personalization",
+    "notifications": "Notifications",
+    "dataControl": "Data Control",
+    "language": "Application Language",
+    "checkUpdates": "Check for Updates",
+    "theme": "Theme Color",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "signOut": "Sign Out",
+    "comingSoon": "Coming Soon",
+    "close": "Close"
   }
 }
 

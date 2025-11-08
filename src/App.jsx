@@ -20,8 +20,33 @@ function App() {
   const [aiMessages, setAiMessages] = useState([]);
   const [aiInput, setAiInput] = useState('');
   const [isAiThinking, setIsAiThinking] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [theme, setTheme] = useState('light');
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const fileInputRef = useRef(null);
   const aiContentRef = useRef(null);
+
+  // 初始化主題
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+
+  // 切換主題
+  const changeTheme = (newTheme) => {
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  // 處理未實作功能的點擊
+  const handleComingSoonClick = () => {
+    setShowComingSoon(true);
+    setTimeout(() => {
+      setShowComingSoon(false);
+    }, 2000);
+  };
 
   // 切換語言
   const changeLanguage = (lng) => {
@@ -114,6 +139,9 @@ function App() {
     if (selectedNote) {
       setEditingContent(selectedNote.content);
       setEditingTitle(selectedNote.title);
+    } else {
+      setEditingContent('');
+      setEditingTitle('');
     }
   }, [selectedNote]);
 
@@ -400,6 +428,140 @@ function App() {
         onChange={handleFileSelect}
       />
       
+      {/* Settings Modal */}
+      {showSettings && (
+        <div className="settings-overlay" onClick={() => setShowSettings(false)}>
+          <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="settings-header">
+              <h2 className="settings-title">{t('settings.title')}</h2>
+              <button 
+                className="settings-close-btn"
+                onClick={() => setShowSettings(false)}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="settings-content">
+              {/* 1. Profile - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">👤</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.profile')}</div>
+                </div>
+              </div>
+
+              {/* 2. Current Plan - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">📋</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.currentPlan')}</div>
+                </div>
+              </div>
+
+              {/* 3. Upgrade Plan - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">⬆️</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.upgradePlan')}</div>
+                </div>
+              </div>
+
+              {/* 4. Personalization - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">🎨</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.personalization')}</div>
+                </div>
+              </div>
+
+              {/* 5. Notifications - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">🔔</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.notifications')}</div>
+                </div>
+              </div>
+
+              {/* 6. Data Control - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">🗄️</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.dataControl')}</div>
+                </div>
+              </div>
+
+              {/* 7. Application Language - 已實作 */}
+              <div className="settings-item active">
+                <div className="settings-item-icon">🌐</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.language')}</div>
+                  <div className="settings-item-control">
+                    <select 
+                      value={i18n.language}
+                      onChange={(e) => changeLanguage(e.target.value)}
+                      className="settings-select"
+                    >
+                      <option value="en">🇺🇸 English</option>
+                      <option value="zh-TW">🇹🇼 繁體中文</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* 8. Check for Updates - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">🔄</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.checkUpdates')}</div>
+                </div>
+              </div>
+
+              {/* 9. Theme Color - 已實作 */}
+              <div className="settings-item active">
+                <div className="settings-item-icon">🎨</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.theme')}</div>
+                  <div className="settings-item-control">
+                    <div className="theme-options">
+                      <div 
+                        className={`theme-option ${theme === 'light' ? 'selected' : ''}`}
+                        onClick={() => changeTheme('light')}
+                      >
+                        <div className="theme-option-icon">☀️</div>
+                        <div className="theme-option-name">{t('settings.themeLight')}</div>
+                      </div>
+                      <div 
+                        className={`theme-option ${theme === 'dark' ? 'selected' : ''}`}
+                        onClick={() => changeTheme('dark')}
+                      >
+                        <div className="theme-option-icon">🌙</div>
+                        <div className="theme-option-name">{t('settings.themeDark')}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 10. Sign Out - 未實作 */}
+              <div className="settings-item disabled" onClick={handleComingSoonClick}>
+                <div className="settings-item-icon">🚪</div>
+                <div className="settings-item-text">
+                  <div className="settings-item-title">{t('settings.signOut')}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Coming Soon Toast */}
+      {showComingSoon && (
+        <div className="coming-soon-toast">
+          {t('settings.comingSoon')}
+        </div>
+      )}
+
       {/* 匯入進度提示 */}
       {importProgress && (
         <div className="import-overlay">
@@ -432,23 +594,6 @@ function App() {
       <div className="top-bar">
         <div className="top-bar-left">
           <span style={{ fontSize: '12px', color: '#707070' }}>{t('topBar.integrations')}</span>
-          <select 
-            value={i18n.language}
-            onChange={(e) => changeLanguage(e.target.value)}
-            style={{ 
-              marginLeft: '12px',
-              padding: '2px 6px',
-              fontSize: '11px',
-              backgroundColor: '#2d2d2d',
-              color: '#ffffff',
-              border: '1px solid #505050',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            <option value="en">🇺🇸 EN</option>
-            <option value="zh-TW">🇹🇼 繁中</option>
-          </select>
         </div>
         <div className="top-bar-center">
           <input
@@ -469,6 +614,13 @@ function App() {
           </button>
           <button className="top-bar-btn">{t('topBar.split')}</button>
           <button className="top-bar-btn">{t('topBar.organize')}</button>
+          <button 
+            className="top-bar-btn"
+            onClick={() => setShowSettings(true)}
+            title={t('topBar.settings')}
+          >
+            ⚙️
+          </button>
         </div>
       </div>
 
@@ -515,10 +667,13 @@ function App() {
                       <div
                         key={note.id}
                         className={`note-item ${selectedNote?.id === note.id ? 'selected' : ''}`}
-                        onClick={() => selectNote(note)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          selectNote(note);
+                        }}
                       >
-                        <span className="note-title">{note.title}</span>
-                        <span className="note-time">{note.timestamp}</span>
+                        <div className="note-title">{note.title}</div>
+                        <div className="note-time">{note.timestamp}</div>
                       </div>
                     ))}
                   </div>
@@ -529,27 +684,25 @@ function App() {
         </div>
 
         {/* Editor Area */}
-        <div className="editor-area">
+        <div className="editor">
           {selectedNote ? (
             <>
               <div className="editor-toolbar">
                 <button 
-                  className="toolbar-btn" 
+                  className="editor-toolbar-btn" 
                   title={t('editor.delete')}
                   onClick={() => handleDeleteNote(selectedNote.id)}
                 >
                   🗑️
                 </button>
-                <div className="toolbar-divider"></div>
-                <button className="toolbar-btn" title={t('editor.bold')}><strong>B</strong></button>
-                <button className="toolbar-btn" title={t('editor.italic')}><em>I</em></button>
-                <button className="toolbar-btn" title={t('editor.underline')}><u>U</u></button>
-                <button className="toolbar-btn" title={t('editor.strikethrough')}><s>S</s></button>
-                <button className="toolbar-btn" title={t('editor.code')}>{'</>'}</button>
-                <button className="toolbar-btn" title={t('editor.font')}>Aa</button>
-                <div className="toolbar-divider"></div>
+                <button className="editor-toolbar-btn" title={t('editor.bold')}><strong>B</strong></button>
+                <button className="editor-toolbar-btn" title={t('editor.italic')}><em>I</em></button>
+                <button className="editor-toolbar-btn" title={t('editor.underline')}><u>U</u></button>
+                <button className="editor-toolbar-btn" title={t('editor.strikethrough')}><s>S</s></button>
+                <button className="editor-toolbar-btn" title={t('editor.code')}>{'</>'}</button>
+                <button className="editor-toolbar-btn" title={t('editor.font')}>Aa</button>
                 <select 
-                  className="category-selector"
+                  className="editor-toolbar-select"
                   value={selectedNote.categoryId}
                   onChange={(e) => moveNoteToCategory(selectedNote.id, e.target.value)}
                   title={t('editor.moveToCategory')}
@@ -561,29 +714,28 @@ function App() {
                   ))}
                 </select>
               </div>
-              <div className="editor-content">
-                <input
-                  type="text"
-                  className="editor-title"
-                  value={editingTitle}
-                  onChange={(e) => updateNoteTitle(e.target.value)}
-                  placeholder={t('editor.titlePlaceholder')}
-                />
-                <textarea
-                  className="editor-body"
-                  value={editingContent}
-                  onChange={(e) => updateNoteContent(e.target.value)}
-                  placeholder={t('editor.contentPlaceholder')}
-                />
+              <div className="editor-content-area">
+                <div className="editor-content">
+                  <input
+                    type="text"
+                    className="editor-title"
+                    value={editingTitle}
+                    onChange={(e) => updateNoteTitle(e.target.value)}
+                    placeholder={t('editor.titlePlaceholder')}
+                  />
+                  <textarea
+                    className="editor-body"
+                    value={editingContent}
+                    onChange={(e) => updateNoteContent(e.target.value)}
+                    placeholder={t('editor.contentPlaceholder')}
+                  />
+                </div>
               </div>
             </>
           ) : (
-            <div className="empty-state">
-              <div className="empty-state-icon">📝</div>
-              <div className="empty-state-title">{t('editor.emptyStateTitle')}</div>
-              <div className="empty-state-text">
-                {t('editor.emptyStateText')}
-              </div>
+            <div className="editor-empty-state">
+              <h2>{t('editor.emptyStateTitle')}</h2>
+              <p>{t('editor.emptyStateText')}</p>
             </div>
           )}
         </div>

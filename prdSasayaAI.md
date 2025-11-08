@@ -94,7 +94,7 @@ Sasaya AI 是一個 Apple Mac App桌面應用程式，旨在將用戶分散在�
   - 美式英文（預設語言）
   - 繁體中文（台灣）
 - **語言切換**：
-  - 用戶可在頂部欄選擇語言
+  - 用戶可在 Settings 面板中選擇語言
   - 語言選擇自動保存到本地（localStorage）
   - 切換語言時 UI 即時更新
 - **翻譯範圍**：
@@ -112,6 +112,57 @@ Sasaya AI 是一個 Apple Mac App桌面應用程式，旨在將用戶分散在�
   - ChatGPT 對話匯入後保持原始語言
   - 不對匯入內容進行翻譯
   - 支援中英混合內容
+
+### 2.10 設定功能 (Settings)
+- **功能描述**：用戶可以進行應用程式的各項設定
+- **UI 位置**：頂部導航欄最右側的 Settings 按鈕（齒輪圖示 ⚙️）
+- **設定面板**：點擊 Settings 按鈕後彈出設定 Modal 對話框
+
+#### 設定項目列表（完整規劃）
+Settings 面板包含以下 10 個設定項目：
+
+1. **個人資料 (Profile)** - 未實作
+   - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+   
+2. **正在訂閱方案名稱 (Current Plan)** - 未實作
+   - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+   
+3. **升級方案 (Upgrade Plan)** - 未實作
+   - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+   
+4. **個人化 (Personalization)** - 未實作
+   - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+   
+5. **通知 (Notifications)** - 未實作
+   - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+   
+6. **資料控制 (Data Control)** - 未實作
+   - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+   
+7. **應用程式語言 (Application Language)** - ✅ 已實作
+   - 支援語言：美式英文、繁體中文（台灣）
+   - 預設語言：美式英文
+   - 選擇器：下拉選單或單選按鈕
+   - 即時生效：切換語言後 UI 立即更新
+   - 持久化：使用 localStorage 保存用戶選擇
+   
+8. **檢查更新 (Check for Updates)** - 未實作
+   - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+   
+9. **Theme Color（主題顏色）** - ✅ 已實作
+   - 選項：Light Mode（淺色模式）/ Dark Mode（深色模式）
+   - 預設主題：Light Mode（淺色模式）
+   - 選擇器：單選按鈕或切換開關
+   - 即時生效：切換主題後 UI 立即更新所有顏色
+   - 持久化：使用 localStorage 保存用戶選擇
+   
+10. **登出帳號 (Sign Out)** - 未實作
+    - 顯示項目但點擊後提示「即將推出 (Coming Soon)」
+
+#### MVP 實作範圍
+- **目前實作**：第 7 項（應用程式語言）、第 9 項（Theme Color）
+- **未實作項目**：其餘 8 項顯示在面板中，但點擊後顯示「即將推出 (Coming Soon)」提示訊息
+- **未來擴展**：待後續開發階段逐步實作其他功能
 
 ---
 
@@ -186,7 +237,6 @@ Sasaya AI 是一個 Apple Mac App桌面應用程式，旨在將用戶分散在�
 - **左側**：
   - 標準 macOS 視窗控制（紅、黃、綠）
   - Integrations 標籤
-  - 語言切換選擇器（🇺🇸 EN / 🇹🇼 繁中）
 - **中間**：
   - 搜尋/提問/整理輸入框
 - **右側**：
@@ -194,6 +244,39 @@ Sasaya AI 是一個 Apple Mac App桌面應用程式，旨在將用戶分散在�
   - Ask 按鈕
   - Split 按鈕
   - Organize 按鈕
+  - **Settings 按鈕**（齒輪圖示 ⚙️）
+
+### 3.6 設定面板 (Settings Panel)
+- **觸發方式**：點擊頂部導航欄右側的 Settings 按鈕
+- **顯示方式**：Modal 對話框（居中顯示，背景半透明遮罩）
+- **面板結構**：
+  - **標題列**：
+    - 標題文字：「Settings」或「設定」
+    - 關閉按鈕：右上角 X 按鈕
+  - **設定項目列表**（垂直排列，共 10 項）：
+    1. 個人資料 (Profile) - 顯示但未實作
+    2. 正在訂閱方案名稱 (Current Plan) - 顯示但未實作
+    3. 升級方案 (Upgrade Plan) - 顯示但未實作
+    4. 個人化 (Personalization) - 顯示但未實作
+    5. 通知 (Notifications) - 顯示但未實作
+    6. 資料控制 (Data Control) - 顯示但未實作
+    7. **應用程式語言 (Application Language)** - ✅ 可互動
+       - 下拉選單或單選按鈕：🇺🇸 English / 🇹🇼 繁體中文
+       - 預設值：English
+    8. 檢查更新 (Check for Updates) - 顯示但未實作
+    9. **Theme Color（主題顏色）** - ✅ 可互動
+       - 單選按鈕或切換開關：☀️ Light / 🌙 Dark
+       - 預設值：Light
+    10. 登出帳號 (Sign Out) - 顯示但未實作
+  - **項目樣式區分**：
+    - 已實作項目（7, 9）：正常顏色，可點擊
+    - 未實作項目（1-6, 8, 10）：灰色文字，點擊後顯示 Toast 提示「即將推出 (Coming Soon)」
+- **互動行為**：
+  - 切換語言或主題後立即生效（無需確認）
+  - 點擊未實作項目顯示「即將推出」提示（2 秒後自動消失）
+  - 關閉面板時自動保存設定到 localStorage
+  - 可點擊面板外部區域關閉
+  - 按 ESC 鍵關閉
 
 ---
 
@@ -306,6 +389,35 @@ Sasaya AI 是一個 Apple Mac App桌面應用程式，旨在將用戶分散在�
 - [ ] 資料不會上傳到任何雲端服務
 - [ ] 應用程式關閉後重新打開，資料仍然存在
 - [ ] 資料儲存位置在應用程式專屬目錄中
+
+### US-10: 使用設定面板
+**作為** 一個用戶  
+**我想要** 訪問應用程式的設定面板  
+**以便** 調整語言、主題等個人偏好設定
+
+**Acceptance Criteria:**
+- [ ] 用戶可以點擊頂部導航欄右側的 Settings 按鈕（⚙️）
+- [ ] 開啟設定 Modal 對話框，顯示完整的 10 個設定項目
+- [ ] 設定項目包括：
+  - [ ] 個人資料（顯示但未實作）
+  - [ ] 正在訂閱方案名稱（顯示但未實作）
+  - [ ] 升級方案（顯示但未實作）
+  - [ ] 個人化（顯示但未實作）
+  - [ ] 通知（顯示但未實作）
+  - [ ] 資料控制（顯示但未實作）
+  - [ ] **應用程式語言**（可互動）
+  - [ ] 檢查更新（顯示但未實作）
+  - [ ] **Theme Color**（可互動）
+  - [ ] 登出帳號（顯示但未實作）
+- [ ] 已實作項目（語言、主題）正常顯示，可點擊互動
+- [ ] 未實作項目顯示為灰色，點擊後顯示「即將推出 (Coming Soon)」Toast 提示
+- [ ] 用戶可以在設定面板中切換語言（🇺🇸 English / 🇹🇼 繁體中文）
+- [ ] 用戶可以在設定面板中切換主題（☀️ Light / 🌙 Dark）
+- [ ] 切換語言或主題後 UI 立即更新
+- [ ] 語言和主題選擇自動保存到 localStorage
+- [ ] 下次開啟應用程式時保持上次選擇的語言和主題
+- [ ] 預設語言為 English，預設主題為 Light Mode
+- [ ] 可以點擊 X 按鈕、面板外部區域或按 ESC 鍵關閉設定面板
 
 ---
 
@@ -470,6 +582,61 @@ Sasaya AI 是一個 Apple Mac App桌面應用程式，旨在將用戶分散在�
   - 使用 `t('key')` 函數進行翻譯
   - 語言切換時調用 `i18n.changeLanguage(lng)`
 
+### 5.9 主題系統實現 (Theme System)
+- **技術方案**：
+  - 使用 CSS 變數 (CSS Custom Properties) 管理主題色彩
+  - 主題儲存：使用 `localStorage.setItem('theme', 'dark'|'light')`
+  - 初始化時從 localStorage 讀取主題設定，預設為 'light'
+  - 動態切換：透過修改 `document.documentElement` 的 `data-theme` 屬性
+- **CSS 變數結構**：
+  ```css
+  /* Dark Theme */
+  :root[data-theme="dark"] {
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3d3d3d;
+    --text-primary: #ffffff;
+    --text-secondary: #d0d0d0;
+    --text-tertiary: #a0a0a0;
+    --border-color: #505050;
+    --accent-color: #0066cc;
+    --hover-bg: #404040;
+    --input-bg: #2d2d2d;
+    --shadow: rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Light Theme (預設) */
+  :root[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --bg-tertiary: #e8e8e8;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-tertiary: #666666;
+    --border-color: #dddddd;
+    --accent-color: #0066cc;
+    --hover-bg: #f0f0f0;
+    --input-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+  }
+  ```
+- **實現細節**：
+  - 在 App 組件中管理 `theme` state
+  - 使用 `useEffect` 在初始化時讀取並應用保存的主題
+  - 切換主題函數：
+    ```javascript
+    const toggleTheme = (newTheme) => {
+      setTheme(newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    };
+    ```
+  - 所有現有 CSS 需重構為使用 CSS 變數而非硬編碼顏色值
+  - Settings Modal 中提供 Light/Dark 單選按鈕或切換開關
+- **過渡動畫**（可選）：
+  - 主題切換時添加平滑過渡效果
+  - 使用 CSS transition: `transition: background-color 0.3s, color 0.3s;`
+
 ---
 
 ## 6. 開發 Phases
@@ -624,8 +791,8 @@ Sasaya AI 是一個 Apple Mac App桌面應用程式，旨在將用戶分散在�
 - 進階搜尋（語義搜尋、模糊搜尋）
 - 筆記連結和關係圖
 - 匯出功能（Markdown、PDF 等）
-- 主題切換（深色/淺色）
 - 更多語言支援（日文、韓文、西班牙文等）
+- 更多設定選項（字體大小、編輯器偏好、自動儲存間隔等）
 - 筆記模板
 - 標籤系統
 - 版本歷史記錄
